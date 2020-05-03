@@ -1,17 +1,38 @@
 <template>
   <div id="app">
-    1233
+    <Header></Header>
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Header
+  },
+  methods: {
+  }
 }
 </script>
 <style scoped lang="scss">
-#app{
-  font-size: 20px;
-  color: red;
+  @import "assets/css/variable";
+  @import "assets/css/mixin";
+.theme{
+  position: fixed;
+  bottom: 0;
+  button{
+    width: 50px;
+    height: 50px;
+    &:nth-child(1){
+      background: red;
+    }
+    &:nth-child(2){
+      background: green;
+    }
+    &:nth-child(3){
+      background: gray;
+    }
+  }
 }
 </style>
