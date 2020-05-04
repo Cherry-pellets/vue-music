@@ -26,6 +26,8 @@ export default {
   @import "../assets/css/mixin.scss";
   @import "../assets/css/variable.scss";
   .tabbar{
+    position: relative;
+    z-index: 999;
     display: flex;
     justify-content: space-around;
     width: 100%;

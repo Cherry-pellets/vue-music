@@ -1,10 +1,14 @@
 <template>
-    <div class="recommend">
-      <Banner :banner="banner"></Banner>
-      <Persionalized :personalized="personalized" :title="'推荐歌单'"></Persionalized>
-      <Persionalized :personalized="albums" :title="'最新专辑'"></Persionalized>
-      <NewSongs :songs="songs"></NewSongs>
-    </div>
+  <div class="recommend">
+    <ScrollView>
+      <div>
+        <Banner :banner="banner"></Banner>
+        <Persionalized :personalized="personalized" :title="'推荐歌单'"></Persionalized>
+        <Persionalized :personalized="albums" :title="'最新专辑'"></Persionalized>
+        <NewSongs :songs="songs"></NewSongs>
+      </div>
+    </ScrollView>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -12,6 +16,7 @@ import { getBanner, getPersonalized, getNewAlbum, getNewSongs } from '../Api'
 import Banner from '../components/Banner'
 import Persionalized from '../components/Persionalized'
 import NewSongs from '../components/NewSongs'
+import ScrollView from '../components/ScrollView'
 
 export default {
   name: 'Recommend',
@@ -60,12 +65,19 @@ export default {
   components: {
     Banner,
     Persionalized,
-    NewSongs
+    NewSongs,
+    ScrollView
   }
 
 }
 </script>
 
 <style scoped lang="scss">
-
+  .recommend{
+    position: fixed;
+    top: 184px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 </style>
