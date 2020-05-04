@@ -5,6 +5,9 @@ import store from './store'
 import './assets/css/base.scss'
 import fastclick from 'fastclick'
 
+// Axios.defaults.baseURL = '/api'
+// Axios.defaults.headers.post['Content-Type'] = 'application/json'
+
 fastclick.attach(document.body)
 Vue.config.productionTip = false
 

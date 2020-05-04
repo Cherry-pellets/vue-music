@@ -1,3 +1,3 @@
 import Network from './Network'
 
-export const getBanner = () => Network.get('banner?type=2')
+export const getBanner = () => Network.get('/api/banner?type=2')
