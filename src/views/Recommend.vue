@@ -3,13 +3,15 @@
       <Banner :banner="banner"></Banner>
       <Persionalized :personalized="personalized" :title="'推荐歌单'"></Persionalized>
       <Persionalized :personalized="albums" :title="'最新专辑'"></Persionalized>
+      <NewSongs :songs="songs"></NewSongs>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { getBanner, getPersonalized, getNewAlbum } from '../Api'
+import { getBanner, getPersonalized, getNewAlbum, getNewSongs } from '../Api'
 import Banner from '../components/Banner'
 import Persionalized from '../components/Persionalized'
+import NewSongs from '../components/NewSongs'
 
 export default {
   name: 'Recommend',
@@ -17,7 +19,8 @@ export default {
     return {
       banner: [],
       personalized: [],
-      albums: []
+      albums: [],
+      songs: []
     }
   },
   created () {
@@ -39,8 +42,16 @@ export default {
       })
     getNewAlbum()
       .then(data => {
-        console.log(data.albums)
+        // console.log(data.albums)
         this.albums = data.albums.splice(0, 6)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    getNewSongs()
+      .then(data => {
+        console.log(data.result)
+        this.songs = data.result
       })
       .catch(err => {
         console.log(err)
@@ -48,7 +59,8 @@ export default {
   },
   components: {
     Banner,
-    Persionalized
+    Persionalized,
+    NewSongs
   }
 
 }
