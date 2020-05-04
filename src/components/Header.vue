@@ -54,7 +54,7 @@ export default {
     line-height: 100px;
     color: #fff;
     font-weight: bold;
-    @include font_size($font_medium)
+    @include font_size($font_large)
   }
 }
 </style>
