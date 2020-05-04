@@ -5,7 +5,7 @@
       </div>
       <ul class="list">
         <li v-for="i in songs" :key="i.id" class="item">
-          <img :src="i.picUrl" alt="">
+          <img v-lazy="i.picUrl" alt="">
           <div>
             <h3>{{i.name}}</h3>
             <p>{{i.song.artists[0].name}}</p>

@@ -5,7 +5,7 @@
     </div>
     <div class="list">
       <div class="item" v-for="i in personalized" :key="i.id">
-        <img :src="i.picUrl" alt="">
+        <img v-lazy="i.picUrl" alt="">
         <p>{{i.name}}</p>
       </div>
     </div>

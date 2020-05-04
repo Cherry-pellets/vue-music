@@ -4,10 +4,11 @@ import router from './router'
 import store from './store'
 import './assets/css/base.scss'
 import fastclick from 'fastclick'
+import VueLazyload from 'vue-lazyload'
 
-// Axios.defaults.baseURL = '/api'
-// Axios.defaults.headers.post['Content-Type'] = 'application/json'
-
+Vue.use(VueLazyload, {
+  loading: 'src/assets/images/loading.png'
+})
 fastclick.attach(document.body)
 Vue.config.productionTip = false
 
