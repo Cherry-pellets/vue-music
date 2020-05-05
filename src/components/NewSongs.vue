@@ -4,7 +4,7 @@
         <h3>最新音乐</h3>
       </div>
       <ul class="list">
-        <li v-for="i in songs" :key="i.id" class="item">
+        <li v-for="i in songs" :key="i.id" class="item" @click="handle">
           <img v-lazy="i.picUrl" alt="">
           <div>
             <h3>{{i.name}}</h3>
@@ -23,6 +23,11 @@ export default {
       type: Array,
       default: () => [],
       required: true
+    }
+  },
+  methods: {
+    handle () {
+      console.log('111')
     }
   }
 

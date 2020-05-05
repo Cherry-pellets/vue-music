@@ -10,15 +10,16 @@ export default {
   name: 'ScrollView',
   mounted () {
     this.iscroll = new IScroll(this.$refs.wrapper, {
-      mouseWheel: true,
-      scrollbars: false,
+      mouseWheel: true, // 鼠标滚动
+      scrollbars: false, // 是否显示滚动条
       probeType: 3,
       // 解决拖拽卡顿问题
       scrollX: false,
       scrollY: true,
       disablePointer: true,
       disableTouch: false,
-      disableMouse: true
+      disableMouse: true,
+      click: true
     })
     // 1.创建一个观察者对象
     const observer = new MutationObserver((mutationList, observer) => {

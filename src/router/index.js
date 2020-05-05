@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import Detail from '../views/Detail'
 // import Recommend from '../views/Recommend'
 // import Singer from '../views/Singer'
 // import Rank from '../views/Rank'
@@ -9,6 +10,11 @@ Vue.use(VueRouter)
 
 const Recommend = (resolve) => {
   import('../views/Recommend').then((module) => {
+    resolve(module)
+  })
+}
+const Detail = (resolve) => {
+  import('../views/Detail').then((module) => {
     resolve(module)
   })
 }
@@ -29,7 +35,16 @@ const Search = (resolve) => {
 }
 const routes = [
   { path: '/', redirect: '/recommend' },
-  { path: '/recommend', component: Recommend },
+  {
+    path: '/recommend',
+    component: Recommend,
+    children: [
+      {
+        path: 'detail/:id',
+        component: Detail
+      }
+    ]
+  },
   { path: '/singer', component: Singer },
   { path: '/rank', component: Rank },
   { path: '/search', component: Search }
