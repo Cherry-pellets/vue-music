@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-      <div class="header-left"></div>
+      <div class="header-left" @click="handleNormalPlayer"></div>
       <div class="title">
         <h3 class="song-name">演员</h3>
         <p class="singer">薛之谦</p>
@@ -10,8 +10,20 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapActions } from 'vuex'
 export default {
-  name: 'PlayerHeader'
+  name: 'PlayerHeader',
+  methods: {
+    ...mapActions([
+      'setFullScreen',
+      'setMiniPlayer'
+    ]),
+    handleNormalPlayer () {
+      this.setFullScreen(false)
+      // console.log('111')
+      this.setMiniPlayer(true)
+    }
+  }
 }
 </script>
 

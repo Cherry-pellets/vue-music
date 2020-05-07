@@ -1,4 +1,4 @@
-import { SET_FULL_SCREEN } from './mutations-type'
+import { SET_FULL_SCREEN, SET_MINI_PLAYER } from './mutations-type'
 
 export default {
   // changeFullScreen (state, flag) {
@@ -6,5 +6,8 @@ export default {
   // }
   [SET_FULL_SCREEN] (state, flag) {
     state.isFullScreen = flag
+  },
+  [SET_MINI_PLAYER] (state, flag) {
+    state.showMiniPlayer = flag
   }
 }

@@ -1,7 +1,7 @@
 <template>
-    <div class="mini-player">
+    <div class="mini-player" v-show="this.isShowMiniPlayer">
       <div class="wrapper">
-        <div class="left">
+        <div class="left" @click="showNormalPlayer">
           <img src="https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg" alt="">
           <div class="title">
             <h3>演员</h3>
@@ -17,14 +17,27 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MiniPlayer',
   methods: {
+    ...mapActions([
+      'setFullScreen',
+      'setMiniPlayer'
+    ]),
     showList () {
       this.$emit('showList')
+    },
+    showNormalPlayer () {
+      this.setFullScreen(true)
+      this.setMiniPlayer(false)
     }
+  },
+  computed: {
+    ...mapGetters([
+      'isShowMiniPlayer'
+    ])
   }
-
 }
 </script>
 
