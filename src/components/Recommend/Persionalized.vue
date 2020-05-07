@@ -25,20 +25,25 @@ export default {
       type: String,
       default: '',
       required: true
+    },
+    type: {
+      type: String,
+      default: '',
+      required: true
     }
   },
   methods: {
     selectItem (id) {
-      console.log(id)
-      this.$emit('select', id)
+      // console.log(id)
+      this.$emit('select', id, this.type)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  @import "../assets/css/mixin";
-  @import "../assets/css/variable";
+  @import "../../assets/css/mixin";
+  @import "../../assets/css/variable";
   .personalized{
     @include bg_sub_color();
     .top{

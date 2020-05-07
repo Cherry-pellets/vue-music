@@ -4,7 +4,7 @@
         <div class="icon"></div>
         <div class="title">播放全部</div>
       </li>
-      <li v-for="i in playlist" :key="i.id" class="item">
+      <li v-for="i in playlist" :key="i.id" class="item" @click="selectMusic">
         <h3>{{i.name}}</h3>
         <p>{{i.al.name}} - {{i.ar[0].name}}</p>
       </li>
@@ -12,6 +12,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapActions } from 'vuex'
 export default {
   name: 'DetailBottom',
   props: {
@@ -20,13 +21,22 @@ export default {
       default: () => [],
       required: true
     }
+  },
+  methods: {
+    ...mapActions([
+      'setFullScreen'
+    ]),
+    selectMusic () {
+      // this.$store.dispatch('setFullScreen', true)
+      this.setFullScreen(true)
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  @import "../assets/css/variable";
-  @import "../assets/css/mixin";
+  @import "../../assets/css/variable";
+  @import "../../assets/css/mixin";
   .detail-bottom{
     width: 100%;
     li{
@@ -46,7 +56,7 @@ export default {
         width: 60px;
         height: 60px;
         margin-right: 20px;
-        @include bg_img('../assets/images/small_play');
+        @include bg_img('../../assets/images/small_play');
       }
       .title{
         @include font_color();

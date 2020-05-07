@@ -1,6 +1,6 @@
 <template>
     <div class="detail">
-      <SubHeader :playList="playList"></SubHeader>
+      <SubHeader :title="playList.name"></SubHeader>
       <DetailTop :imgUrl="playList.coverImgUrl" ref="top"></DetailTop>
       <div class="bottom">
         <ScrollView ref="scrollview">
@@ -11,10 +11,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-import SubHeader from '../components/SubHeader'
-import { getPlayList } from '../Api'
-import DetailTop from '../components/DetailTop'
-import DetailBottom from '../components/DetailBottom'
+import SubHeader from '../components/Detail/DetailHeader'
+import { getPlayList, getAlbum } from '../Api'
+import DetailTop from '../components/Detail/DetailTop'
+import DetailBottom from '../components/Detail/DetailBottom'
 import ScrollView from '../components/ScrollView'
 
 export default {
@@ -31,21 +31,36 @@ export default {
     }
   },
   created () {
-    getPlayList({ id: this.$route.params.id })
-      .then(data => {
-        console.log(data)
-        this.playList = data.playlist
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    if (this.$route.params.type === 'personalized') {
+      getPlayList({ id: this.$route.params.id })
+        .then(data => {
+          // console.log(data)
+          this.playList = data.playlist
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else if (this.$route.params.type === 'albums') {
+      getAlbum({ id: this.$route.params.id })
+        .then(data => {
+          console.log(data)
+          this.playList = {
+            name: data.album.name,
+            coverImgUrl: data.album.picUrl,
+            tracks: data.songs
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   mounted () {
     const defaultHeight = this.$refs.top.$el.offsetHeight
     this.$refs.scrollview.scrolling((offsetY) => {
       if (offsetY < 0) {
-        const scale = Math.abs(offsetY) / defaultHeight
-        this.$refs.top.changeMask(scale)
+        // const scale = Math.abs(offsetY) / defaultHeight
+        // this.$refs.top.changeMask(scale)
         /*
         注意点: 高斯模糊效果是非常消耗性能的, 不推荐在移动端中使用
                 如果非要在移动端中使用, 那么建议只设置一次
