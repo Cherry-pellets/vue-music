@@ -11,9 +11,9 @@
     </div>
     <div class="bottom-controll">
       <div class="mode loop" ref="mode" @click="mode"></div>
-      <div class="prev"></div>
+      <div class="prev" @click="prev"></div>
       <div class="play" ref="play" @click="play"></div>
-      <div class="next"></div>
+      <div class="next" @click="next"></div>
       <div class="favorite"></div>
     </div>
   </div>
