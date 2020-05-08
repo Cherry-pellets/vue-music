@@ -1,42 +1,70 @@
 <template>
-    <div class="mini-player" v-show="this.isShowMiniPlayer">
-      <div class="wrapper">
-        <div class="left" @click="showNormalPlayer">
-          <img src="https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg" alt="">
-          <div class="title">
-            <h3>演员</h3>
-            <p>薛之谦</p>
+    <transition :css="false" @enter="enter" @leave="leave">
+      <div class="mini-player" v-show="this.isShowMiniPlayer">
+        <div class="wrapper">
+          <div class="left" @click="showNormalPlayer">
+            <img src="https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg" alt="">
+            <div class="title">
+              <h3>演员</h3>
+              <p>薛之谦</p>
+            </div>
+          </div>
+          <div class="right">
+            <div class="play" ref="play" @click="play"></div>
+            <div class="list" @click="showList"></div>
           </div>
         </div>
-        <div class="right">
-          <div class="play"></div>
-          <div class="list" @click="showList"></div>
-        </div>
       </div>
-    </div>
+    </transition>
 </template>
 
 <script type="text/ecmascript-6">
 import { mapActions, mapGetters } from 'vuex'
+import Velocity from 'velocity-animate'
+import 'velocity-animate/velocity.ui'
 export default {
   name: 'MiniPlayer',
   methods: {
     ...mapActions([
       'setFullScreen',
-      'setMiniPlayer'
+      'setMiniPlayer',
+      'setIsPlaying'
     ]),
+    play () {
+      this.setIsPlaying(!this.isPlaying)
+    },
     showList () {
       this.$emit('showList')
     },
     showNormalPlayer () {
       this.setFullScreen(true)
       this.setMiniPlayer(false)
+    },
+    enter (el, done) {
+      Velocity(el, 'transition.shrinkIn', { duration: 500 }, function () {
+        done()
+      })
+    },
+    leave (el, done) {
+      Velocity(el, 'transition.shrinkOut', { duration: 500 }, function () {
+        done()
+      })
     }
   },
   computed: {
     ...mapGetters([
-      'isShowMiniPlayer'
+      'isShowMiniPlayer',
+      'isPlaying'
     ])
+  },
+  watch: {
+    isPlaying (newValue, oldValue) {
+      if (newValue) {
+        this.$refs.play.classList.add('active')
+      } else {
+        this.$refs.play.classList.remove('active')
+      }
+    }
   }
 }
 </script>

@@ -12,7 +12,7 @@
     <div class="bottom-controll">
       <div class="mode loop"></div>
       <div class="prev"></div>
-      <div class="play"></div>
+      <div class="play" ref="play" @click="play"></div>
       <div class="next"></div>
       <div class="favorite"></div>
     </div>
@@ -20,12 +20,12 @@
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 // import modeType from '../../store/modeType'
 // import { formartTime } from '../../tools/tools'
 
 export default {
-  name: 'PlayerBottom'/*,
+  name: 'PlayerBottom',
   methods: {
     ...mapActions([
       'setIsPlaying',
@@ -42,41 +42,41 @@ export default {
     },
     next () {
       this.setCurrentIndex(this.currentIndex + 1)
-    },
-    mode () {
-      if (this.modeType === modeType.loop) {
-        this.setModeType(modeType.one)
-      } else if (this.modeType === modeType.one) {
-        this.setModeType(modeType.random)
-      } else if (this.modeType === modeType.random) {
-        this.setModeType(modeType.loop)
-      }
-    },
-    favorite () {
-      this.setFavoriteSong(this.currentSong)
-    },
-    isFavorite (song) {
-      const result = this.favoriteList.find(function (currentValue) {
-        return currentValue.id === song.id
-      })
-      return result !== undefined
-    },
-    progressClick (e) {
-      // 1.计算进度条的位置
-      // let normalLeft = e.target.offsetLeft
-      const normalLeft = this.$refs.progressBar.offsetLeft
-      const eventLeft = e.pageX
-      const clickLeft = eventLeft - normalLeft
-      // let progressWidth = e.target.offsetWidth
-      const progressWidth = this.$refs.progressBar.offsetWidth
-      const value = clickLeft / progressWidth
-      this.$refs.progressLine.style.width = value * 100 + '%'
-
-      // 2.计算当前应该从什么地方开始播放
-      const currentTime = this.totalTime * value
-      // console.log(currentTime)
-      this.setCurrentTime(currentTime)
     }
+    // mode () {
+    //   if (this.modeType === modeType.loop) {
+    //     this.setModeType(modeType.one)
+    //   } else if (this.modeType === modeType.one) {
+    //     this.setModeType(modeType.random)
+    //   } else if (this.modeType === modeType.random) {
+    //     this.setModeType(modeType.loop)
+    //   }
+    // },
+    // favorite () {
+    //   this.setFavoriteSong(this.currentSong)
+    // },
+    // isFavorite (song) {
+    //   const result = this.favoriteList.find(function (currentValue) {
+    //     return currentValue.id === song.id
+    //   })
+    //   return result !== undefined
+    // },
+    // progressClick (e) {
+    //   // 1.计算进度条的位置
+    //   // let normalLeft = e.target.offsetLeft
+    //   const normalLeft = this.$refs.progressBar.offsetLeft
+    //   const eventLeft = e.pageX
+    //   const clickLeft = eventLeft - normalLeft
+    //   // let progressWidth = e.target.offsetWidth
+    //   const progressWidth = this.$refs.progressBar.offsetWidth
+    //   const value = clickLeft / progressWidth
+    //   this.$refs.progressLine.style.width = value * 100 + '%'
+    //
+    //   // 2.计算当前应该从什么地方开始播放
+    //   const currentTime = this.totalTime * value
+    //   // console.log(currentTime)
+    //   this.setCurrentTime(currentTime)
+    // }
   },
   computed: {
     ...mapGetters([
@@ -94,44 +94,8 @@ export default {
       } else {
         this.$refs.play.classList.remove('active')
       }
-    },
-    modeType (newValue, oldValue) {
-      if (newValue === modeType.loop) {
-        this.$refs.mode.classList.remove('random')
-        this.$refs.mode.classList.add('loop')
-      } else if (newValue === modeType.one) {
-        this.$refs.mode.classList.remove('loop')
-        this.$refs.mode.classList.add('one')
-      } else if (newValue === modeType.random) {
-        this.$refs.mode.classList.remove('one')
-        this.$refs.mode.classList.add('random')
-      }
-    },
-    totalTime (newValue, oldValue) {
-      const time = formartTime(newValue)
-      this.$refs.eleTotalTime.innerHTML = time.minute + ':' + time.second
-    },
-    currentTime (newValue, oldValue) {
-      // 1.格式化当前播放的时间
-      const time = formartTime(newValue)
-      this.$refs.eleCurrentTime.innerHTML = time.minute + ':' + time.second
-      // 2.根据当前播放的时间计算比例
-      const value = newValue / this.totalTime * 100
-      this.$refs.progressLine.style.width = value + '%'
     }
-  },
-  props: {
-    totalTime: {
-      type: Number,
-      default: 0,
-      required: true
-    },
-    currentTime: {
-      type: Number,
-      default: 0,
-      required: true
-    }
-  } */
+  }
 }
 </script>
 

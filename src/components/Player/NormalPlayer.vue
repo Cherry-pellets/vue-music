@@ -1,5 +1,6 @@
 <template>
-<!--    <div class="normal-player" v-show="this.$store.getters.isFullScreen">-->
+  <transition :css="false" @enter="enter" @leave="leave">
+    <!--    <div class="normal-player" v-show="this.$store.getters.isFullScreen">-->
     <div class="normal-player" v-show="this.isFullScreen">
       <div class="wrapper">
         <PlayerHeader></PlayerHeader>
@@ -10,6 +11,7 @@
         <img src="https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg" alt="">
       </div>
     </div>
+  </transition>
 </template>
 
 <script type="text/ecmascript-6">
@@ -17,6 +19,8 @@ import PlayerHeader from './PlayerHeader'
 import PlayerMiddlle from './PlayerMiddlle'
 import PlayerBottom from './PlayerBottom'
 import { mapGetters } from 'vuex'
+import Velocity from 'velocity-animate'
+import 'velocity-animate/velocity.ui'
 export default {
   name: 'Player',
   components: {
@@ -28,6 +32,18 @@ export default {
     ...mapGetters([
       'isFullScreen'
     ])
+  },
+  methods: {
+    enter (el, done) {
+      Velocity(el, 'transition.shrinkIn', { duration: 500 }, function () {
+        done()
+      })
+    },
+    leave (el, done) {
+      Velocity(el, 'transition.shrinkOut', { duration: 500 }, function () {
+        done()
+      })
+    }
   }
 
 }
