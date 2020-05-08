@@ -2,15 +2,15 @@
     <div class="header">
       <div class="header-left" @click="handleNormalPlayer"></div>
       <div class="title">
-        <h3 class="song-name">演员</h3>
-        <p class="singer">薛之谦</p>
+        <h3 class="song-name">{{currentSong.name}}</h3>
+        <p class="singer">{{currentSong.singer}}</p>
       </div>
       <div class="header-right"></div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'PlayerHeader',
   methods: {
@@ -23,6 +23,9 @@ export default {
       // console.log('111')
       this.setMiniPlayer(true)
     }
+  },
+  computed: {
+    ...mapGetters(['currentSong'])
   }
 }
 </script>

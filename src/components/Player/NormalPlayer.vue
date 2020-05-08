@@ -8,7 +8,7 @@
         <PlayerBottom></PlayerBottom>
       </div>
       <div class="player-bg">
-        <img src="https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg" alt="">
+        <img :src="this.currentSong.picUrl" alt="">
       </div>
     </div>
   </transition>
@@ -18,7 +18,7 @@
 import PlayerHeader from './PlayerHeader'
 import PlayerMiddlle from './PlayerMiddlle'
 import PlayerBottom from './PlayerBottom'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Velocity from 'velocity-animate'
 import 'velocity-animate/velocity.ui'
 export default {
@@ -30,10 +30,15 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isFullScreen'
+      'isFullScreen',
+      'currentSong',
+      'currentLyric'
     ])
   },
   methods: {
+    ...mapActions([
+      'setSongLyric'
+    ]),
     enter (el, done) {
       Velocity(el, 'transition.shrinkIn', { duration: 500 }, function () {
         done()
@@ -44,8 +49,13 @@ export default {
         done()
       })
     }
+  },
+  watch: {
+    currentSong (newValue, oldValue) {
+      console.log(newValue)
+      this.setSongLyric(newValue.id)
+    }
   }
-
 }
 </script>
 

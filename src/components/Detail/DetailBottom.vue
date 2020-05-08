@@ -4,7 +4,7 @@
         <div class="icon"></div>
         <div class="title">播放全部</div>
       </li>
-      <li v-for="i in playlist" :key="i.id" class="item" @click="selectMusic">
+      <li v-for="i in playlist" :key="i.id" class="item" @click="selectMusic(i.id)">
         <h3>{{i.name}}</h3>
         <p>{{i.al.name}} - {{i.ar[0].name}}</p>
       </li>
@@ -24,11 +24,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setFullScreen'
+      'setFullScreen',
+      'setSongDetail'
     ]),
-    selectMusic () {
+    selectMusic (id) {
       // this.$store.dispatch('setFullScreen', true)
       this.setFullScreen(true)
+      this.setSongDetail([id])
     }
   }
 }

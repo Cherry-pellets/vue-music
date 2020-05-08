@@ -60,7 +60,7 @@ export default {
       })
     getNewSongs()
       .then(data => {
-        console.log(data.result)
+        // console.log(data.result)
         this.songs = data.result
       })
       .catch(err => {

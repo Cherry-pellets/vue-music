@@ -3,63 +3,14 @@
       <swiper ref="mySwiper" :options="swiperOption" class="banner">
         <swiper-slide class="cd">
           <div class="cd-wrapper" ref="cdWrapper">
-            <img src="https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg" alt="">
+            <img :src="this.currentSong.picUrl" alt="">
           </div>
-          <p>这里是描述</p>
+          <p>{{getFirstLyric()}}</p>
         </swiper-slide>
         <swiper-slide class="lyric">
           <ScrollView>
             <ul>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
-              <li>这里是歌词</li>
+              <li v-for="(value, index) in this.currentLyric" :key="index">{{value}}</li>
             </ul>
           </ScrollView>
         </swiper-slide>
@@ -76,7 +27,11 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'PlayerMidlle',
   computed: {
-    ...mapGetters(['isPlaying'])
+    ...mapGetters([
+      'isPlaying',
+      'currentSong',
+      'currentLyric'
+    ])
   },
   watch: {
     isPlaying (newValue, oldValue) {
@@ -107,6 +62,13 @@ export default {
   },
   directives: {
     swiper: directive
+  },
+  methods: {
+    getFirstLyric () {
+      for (const key in this.currentLyric) {
+        return this.currentLyric[key]
+      }
+    }
   }
 }
 </script>
