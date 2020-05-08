@@ -2,7 +2,7 @@
     <div class="player-middle">
       <swiper ref="mySwiper" :options="swiperOption" class="banner">
         <swiper-slide class="cd">
-          <div class="cd-wrapper">
+          <div class="cd-wrapper" ref="cdWrapper">
             <img src="https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg" alt="">
           </div>
           <p>这里是描述</p>
@@ -72,8 +72,21 @@
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import ScrollView from '../ScrollView'
 import 'swiper/css/swiper.css'
+import { mapGetters } from 'vuex'
 export default {
   name: 'PlayerMidlle',
+  computed: {
+    ...mapGetters(['isPlaying'])
+  },
+  watch: {
+    isPlaying (newValue, oldValue) {
+      if (newValue) {
+        this.$refs.cdWrapper.classList.add('active')
+      } else {
+        this.$refs.cdWrapper.classList.remove('active')
+      }
+    }
+  },
   data () {
     return {
       swiperOption: {
@@ -115,6 +128,11 @@ export default {
         margin: 0 auto;
         border: 30px solid #fff;
         overflow: hidden;
+        animation: sport 3s linear infinite;
+        animation-play-state: paused;
+        &.active{
+          animation-play-state: running;
+        }
         img{
           width: 100%;
           height: 100%;
@@ -137,6 +155,15 @@ export default {
           padding-bottom: 100px;
         }
       }
+    }
+  }
+
+  @keyframes sport {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 </style>
