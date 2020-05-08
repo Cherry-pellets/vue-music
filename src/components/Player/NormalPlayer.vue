@@ -52,7 +52,10 @@ export default {
   },
   watch: {
     currentSong (newValue, oldValue) {
-      console.log(newValue)
+      // console.log(newValue)
+      if (newValue.id === undefined) {
+        return
+      }
       this.setSongLyric(newValue.id)
     }
   }

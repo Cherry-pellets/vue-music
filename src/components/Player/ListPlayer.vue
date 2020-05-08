@@ -15,10 +15,10 @@
         </div>
         <div class="player-middle">
           <ScrollView ref="scrollView">
-            <ul>
+            <ul ref="play" >
               <li class="item" v-for="(value, index) in this.songs" :key="value.id">
                 <div class="item-left">
-                  <div class="item-play" ref="play" @click="play"></div>
+                  <div class="item-play" @click="play" v-show="this.currentIndex === index"></div>
                   <p>{{ value.name }}</p>
                 </div>
                 <div class="item-right">
@@ -53,7 +53,8 @@ export default {
       'isPlaying',
       'modeType',
       'isShowListPlayer',
-      'songs'
+      'songs',
+      'currentIndex'
     ])
   },
   methods: {
@@ -205,9 +206,6 @@ export default {
             height: 56px;
             margin-right: 20px;
             @include bg_img("../../assets/images/small_pause");
-            &.active {
-              @include bg_img("../../assets/images/small_play");
-            }
           }
           p {
             width: 80%;
