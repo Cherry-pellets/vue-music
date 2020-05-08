@@ -5,10 +5,11 @@ import {
   SET_MODE_TYPE,
   SET_LIST_PLAYER,
   SET_SONG_DETAIL,
-  SET_SONG_LYRIC
+  SET_SONG_LYRIC,
+  SET_DEL_SONG
 } from './mutations-type'
 
-import { getSongDetail, getSongLyric } from '../Api'
+import { getSongDetail, getSongLyric, getSongURL } from '../Api'
 
 export default {
   // setFullScreen ({ commit }, flag) {
@@ -31,13 +32,16 @@ export default {
   },
   async setSongDetail ({ commit }, ids) {
     const result = await getSongDetail({ ids: ids.join(',') })
-    // console.log(result)
+    const urls = await getSongURL({ ids: ids.join(',') })
+    // eslint-disable-next-line no-undef
+    console.log(urls)
     const list = []
-    result.songs.forEach((value) => {
+    result.songs.forEach((value, i) => {
       const obj = {}
       // 歌曲名
       obj.name = value.name
       obj.id = value.id
+      obj.urls = urls.data[i].url
       // 歌手
       let singer = ''
       value.ar.forEach((item, index) => {
@@ -59,6 +63,9 @@ export default {
     // console.log(result.lrc.lyric)
     const obj = parseLyric(result.lrc.lyric)
     commit(SET_SONG_LYRIC, obj)
+  },
+  setDelSong ({ commit }, index) {
+    commit(SET_DEL_SONG, index)
   }
 }
 // 格式化歌词方法

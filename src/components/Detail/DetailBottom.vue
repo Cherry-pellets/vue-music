@@ -1,5 +1,5 @@
 <template>
-    <ul class="detail-bottom">
+    <ul class="detail-bottom" @click="selectAllMusic">
       <li class="all">
         <div class="icon"></div>
         <div class="title">播放全部</div>
@@ -31,6 +31,13 @@ export default {
       // this.$store.dispatch('setFullScreen', true)
       this.setFullScreen(true)
       this.setSongDetail([id])
+    },
+    selectAllMusic () {
+      this.setFullScreen(true)
+      const ids = this.playlist.map(function (item) {
+        return item.id
+      })
+      this.setSongDetail(ids)
     }
   }
 }
