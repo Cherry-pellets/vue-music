@@ -10,7 +10,7 @@
       <span ref="eleTotalTime">00:00</span>
     </div>
     <div class="bottom-controll">
-      <div class="mode loop"></div>
+      <div class="mode loop" ref="mode" @click="mode"></div>
       <div class="prev"></div>
       <div class="play" ref="play" @click="play"></div>
       <div class="next"></div>
@@ -21,7 +21,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-// import modeType from '../../store/modeType'
+import modeType from '../../store/modeType'
 // import { formartTime } from '../../tools/tools'
 
 export default {
@@ -42,16 +42,16 @@ export default {
     },
     next () {
       this.setCurrentIndex(this.currentIndex + 1)
+    },
+    mode () {
+      if (this.modeType === modeType.loop) {
+        this.setModeType(modeType.one)
+      } else if (this.modeType === modeType.one) {
+        this.setModeType(modeType.random)
+      } else if (this.modeType === modeType.random) {
+        this.setModeType(modeType.loop)
+      }
     }
-    // mode () {
-    //   if (this.modeType === modeType.loop) {
-    //     this.setModeType(modeType.one)
-    //   } else if (this.modeType === modeType.one) {
-    //     this.setModeType(modeType.random)
-    //   } else if (this.modeType === modeType.random) {
-    //     this.setModeType(modeType.loop)
-    //   }
-    // },
     // favorite () {
     //   this.setFavoriteSong(this.currentSong)
     // },
@@ -93,6 +93,18 @@ export default {
         this.$refs.play.classList.add('active')
       } else {
         this.$refs.play.classList.remove('active')
+      }
+    },
+    modeType (newValue, oldValue) {
+      if (newValue === modeType.loop) {
+        this.$refs.mode.classList.remove('random')
+        this.$refs.mode.classList.add('loop')
+      } else if (newValue === modeType.one) {
+        this.$refs.mode.classList.remove('loop')
+        this.$refs.mode.classList.add('one')
+      } else if (newValue === modeType.random) {
+        this.$refs.mode.classList.remove('one')
+        this.$refs.mode.classList.add('random')
       }
     }
   }
