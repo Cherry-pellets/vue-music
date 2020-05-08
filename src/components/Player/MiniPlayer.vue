@@ -28,13 +28,14 @@ export default {
     ...mapActions([
       'setFullScreen',
       'setMiniPlayer',
-      'setIsPlaying'
+      'setIsPlaying',
+      'setListPlayer'
     ]),
     play () {
       this.setIsPlaying(!this.isPlaying)
     },
     showList () {
-      this.$emit('showList')
+      this.setListPlayer(true)
     },
     showNormalPlayer () {
       this.setFullScreen(true)
@@ -54,7 +55,8 @@ export default {
   computed: {
     ...mapGetters([
       'isShowMiniPlayer',
-      'isPlaying'
+      'isPlaying',
+      'isShowListPlayer'
     ])
   },
   watch: {

@@ -5,6 +5,9 @@ export default {
   isShowMiniPlayer (state) {
     return state.showMiniPlayer
   },
+  isShowListPlayer (state) {
+    return state.showListPlayer
+  },
   isPlaying (state) {
     return state.isPlaying
   },

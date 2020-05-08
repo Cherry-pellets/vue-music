@@ -1,6 +1,6 @@
 <template>
     <transition :css="false" @enter="enter" @leave="leave">
-      <div class="list-player">
+      <div class="list-player" ref="listPlayer" v-show="this.isShowListPlayer">
         <div class="player-wrapper">
           <div class="player-top">
             <div class="top-left">
@@ -47,7 +47,7 @@
               </li>
             </ul>
           </div>
-          <div class="player-bottom" @click="showList">
+          <div class="player-bottom" @click="close">
             <p>关闭</p>
           </div>
         </div>
@@ -65,16 +65,21 @@ export default {
   computed: {
     ...mapGetters([
       'isPlaying',
-      'modeType'
+      'modeType',
+      'isShowListPlayer'
     ])
   },
   methods: {
     ...mapActions([
       'setIsPlaying',
-      'setModeType'
+      'setModeType',
+      'setListPlayer'
     ]),
-    showList () {
+    /* showList () {
       this.$emit('showList')
+    }, */
+    close () {
+      this.setListPlayer(false)
     },
     play () {
       console.log('111')
