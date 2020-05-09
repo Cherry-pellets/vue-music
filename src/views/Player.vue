@@ -3,7 +3,7 @@
       <NormalPlayer :totalTime="totalTime" :currentTime="currentTime"></NormalPlayer>
       <MiniPlayer></MiniPlayer>
       <ListPlayer></ListPlayer>
-      <audio :src="this.currentSong.url" ref="audio" @timeupdate="timeUpdate"></audio>
+      <audio :src="this.currentSong.url" ref="audio" @timeupdate="timeUpdate" @ended="end"></audio>
     </div>
 </template>
 
@@ -11,7 +11,8 @@
 import NormalPlayer from '../components/Player/NormalPlayer'
 import MiniPlayer from '../components/Player/MiniPlayer'
 import ListPlayer from '../components/Player/ListPlayer'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import mode from '../store/modeType'
 export default {
   name: 'Player',
   components: {
@@ -29,7 +30,9 @@ export default {
     ...mapGetters([
       'currentSong',
       'isPlaying',
-      'currentIndex'
+      'currentIndex',
+      'curTime',
+      'modeType'
     ])
   },
   watch: {
@@ -50,17 +53,38 @@ export default {
         }
       }
     },
-    mounted () {
-      this.$refs.audio.ondurationchange = () => {
-        console.log('执行了1')
-        this.totalTime = this.$refs.audio.duration
-      }
+    curTime (newValue, oldValue) {
+      this.$refs.audio.currentTime = newValue
+    }
+  },
+  mounted () {
+    this.$refs.audio.ondurationchange = () => {
+      console.log('执行了1')
+      this.totalTime = this.$refs.audio.duration
+    }
+  },
+  methods: {
+    ...mapActions([
+      'setCurrentIndex'
+    ]),
+    timeUpdate (e) {
+      this.currentTime = e.target.currentTime
     },
-    methods: {
-      timeUpdate (e) {
-        this.currentTime = e.target.currentTime
+    end () {
+      if (this.modeType === mode.loop) {
+        this.setCurrentIndex(this.currentIndex + 1)
+      } else if (this.modeType === mode.loop) {
+        this.$refs.audio.play()
+      } else {
+        let index = this.getRandomIntInclusive(0, this.songs.length - 1)
+        this.setCurrentIndex(index)
       }
     }
+  },
+  getRandomIntInclusive  (min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min // 含最大值，含最小值
   }
 }
 </script>
