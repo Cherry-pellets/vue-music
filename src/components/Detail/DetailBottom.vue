@@ -30,11 +30,12 @@ export default {
     selectMusic (id) {
       // this.$store.dispatch('setFullScreen', true)
       this.setFullScreen(true)
+      console.log(id)
       this.setSongDetail([id])
     },
     selectAllMusic () {
       this.setFullScreen(true)
-      const ids = this.playlist.map(function (item) {
+      let ids = this.playlist.map(function (item) {
         return item.id
       })
       this.setSongDetail(ids)

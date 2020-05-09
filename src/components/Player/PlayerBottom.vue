@@ -1,7 +1,7 @@
 <template>
   <div class="player-bottom">
     <div class="bottom-progress">
-      <span>00:00</span>
+      <span ref="eleCurrentTime">00:00</span>
       <div class="progress-bar">
         <div class="progress-line">
           <div class="progress-dot"></div>
@@ -50,6 +50,28 @@ export default {
         this.setModeType(modeType.random)
       } else if (this.modeType === modeType.random) {
         this.setModeType(modeType.loop)
+      }
+    },
+    formartTime (time) {
+      // 2.得到两个时间之间的差值(秒)
+      let differSecond = time
+      // 3.利用相差的总秒数 / 每一天的秒数 = 相差的天数
+      let day = Math.floor(differSecond / (60 * 60 * 24))
+      day = day >= 10 ? day : '0' + day
+      // 4.利用相差的总秒数 / 小时 % 24;
+      let hour = Math.floor(differSecond / (60 * 60) % 24)
+      hour = hour >= 10 ? hour : '0' + hour
+      // 5.利用相差的总秒数 / 分钟 % 60;
+      let minute = Math.floor(differSecond / 60 % 60)
+      minute = minute >= 10 ? minute : '0' + minute
+      // 6.利用相差的总秒数 % 秒数
+      let second = Math.floor(differSecond % 60)
+      second = second >= 10 ? second : '0' + second
+      return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        second: second
       }
     }
     // favorite () {
@@ -106,6 +128,26 @@ export default {
         this.$refs.mode.classList.remove('one')
         this.$refs.mode.classList.add('random')
       }
+    },
+    totalTime (newValue, oldValue) {
+      let time = this.formartTime(newValue)
+      this.$refs.eleTotalTime.innerHTML = time.minute + ':' + time.second
+    },
+    currentTime (newValue, oldValue) {
+      let time = this.formartTime(newValue)
+      this.$refs.eleCurrentTime.innerHTML = time.minute + ':' + time.second
+    }
+  },
+  props: {
+    totalTime: {
+      type: Number,
+      default: 0,
+      required: true
+    },
+    currentTime: {
+      type: Number,
+      default: 0,
+      required: true
     }
   }
 }
@@ -114,32 +156,38 @@ export default {
 <style scoped lang="scss">
   @import "../../assets/css/variable";
   @import "../../assets/css/mixin";
-  .player-bottom{
+
+  .player-bottom {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    .bottom-progress{
+
+    .bottom-progress {
       width: 80%;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      span{
+
+      span {
         @include font_size($font_small);
         @include font_color();
       }
-      .progress-bar{
+
+      .progress-bar {
         width: 100%;
         margin: 0 10px;
         height: 10px;
         background: #fff;
-        .progress-line{
+
+        .progress-line {
           width: 0%;
           height: 100%;
           background: #ccc;
           position: relative;
-          .progress-dot{
+
+          .progress-dot {
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -152,43 +200,54 @@ export default {
         }
       }
     }
-    .bottom-controll{
+
+    .bottom-controll {
       width: 80%;
       margin: 0 auto;
       padding: 50px 100px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      div{
+
+      div {
         width: 84px;
         height: 84px;
       }
-      .mode{
-        &.loop{
+
+      .mode {
+        &.loop {
           @include bg_img('../../assets/images/loop');
         }
-        &.one{
+
+        &.one {
           @include bg_img('../../assets/images/one');
         }
-        &.random{
+
+        &.random {
           @include bg_img('../../assets/images/shuffle');
         }
       }
-      .prev{
+
+      .prev {
         @include bg_img('../../assets/images/prev')
       }
-      .play{
+
+      .play {
         @include bg_img('../../assets/images/play');
-        &.active{
+
+        &.active {
           @include bg_img('../../assets/images/pause');
         }
       }
-      .next{
+
+      .next {
         @include bg_img('../../assets/images/next');
       }
-      .favorite{
+
+      .favorite {
         @include bg_img('../../assets/images/un_favorite');
-        &.active{
+
+        &.active {
           @include bg_img('../../assets/images/favorite');
         }
       }

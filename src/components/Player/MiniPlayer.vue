@@ -1,12 +1,12 @@
 <template>
     <transition :css="false" @enter="enter" @leave="leave">
-      <div class="mini-player" v-show="this.isShowMiniPlayer">
+      <div class="mini-player" v-show="isShowMiniPlayer">
         <div class="wrapper">
           <div class="left" @click="showNormalPlayer">
-            <img :src="this.currentSong.picUrl" alt="" ref="cd">
+            <img :src="currentSong.picUrl" alt="" ref="cd">
             <div class="title">
-              <h3>{{this.currentSong.name}}</h3>
-              <p>{{this.currentSong.singer}}</p>
+              <h3>{{currentSong.name}}</h3>
+              <p>{{currentSong.singer}}</p>
             </div>
           </div>
           <div class="right">

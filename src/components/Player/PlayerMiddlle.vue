@@ -3,14 +3,14 @@
       <swiper ref="mySwiper" :options="swiperOption" class="banner">
         <swiper-slide class="cd">
           <div class="cd-wrapper" ref="cdWrapper">
-            <img :src="this.currentSong.picUrl" alt="">
+            <img :src="currentSong.picUrl" alt="">
           </div>
           <p>{{getFirstLyric()}}</p>
         </swiper-slide>
         <swiper-slide class="lyric">
           <ScrollView>
             <ul>
-              <li v-for="(value, index) in this.currentLyric" :key="index">{{value}}</li>
+              <li v-for="(value, index) in currentLyric" :key="index">{{value}}</li>
             </ul>
           </ScrollView>
         </swiper-slide>

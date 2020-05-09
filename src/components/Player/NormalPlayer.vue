@@ -1,14 +1,14 @@
 <template>
   <transition :css="false" @enter="enter" @leave="leave">
     <!--    <div class="normal-player" v-show="this.$store.getters.isFullScreen">-->
-    <div class="normal-player" v-show="this.isFullScreen">
+    <div class="normal-player" v-show="isFullScreen">
       <div class="wrapper">
         <PlayerHeader></PlayerHeader>
         <PlayerMiddlle></PlayerMiddlle>
-        <PlayerBottom></PlayerBottom>
+        <PlayerBottom :totalTime="totalTime" :currentTime="currentTime"></PlayerBottom>
       </div>
       <div class="player-bg">
-        <img :src="this.currentSong.picUrl" alt="">
+        <img :src="currentSong.picUrl" alt="">
       </div>
     </div>
   </transition>
@@ -57,6 +57,18 @@ export default {
         return
       }
       this.setSongLyric(newValue.id)
+    }
+  },
+  props: {
+    totalTime: {
+      type: Number,
+      default: 0,
+      required: true
+    },
+    currentTime: {
+      type: Number,
+      default: 0,
+      required: true
     }
   }
 }

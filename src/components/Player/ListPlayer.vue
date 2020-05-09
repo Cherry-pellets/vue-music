@@ -1,12 +1,12 @@
 <template>
   <transition :css="false" @enter="enter" @leave="leave">
-    <div class="list-player" ref="listPlayer" v-show="this.isShowListPlayer">
+    <div class="list-player" ref="listPlayer" v-show="isShowListPlayer">
       <div class="player-wrapper">
         <div class="player-top">
           <div class="top-left">
             <div class="mode" ref="mode" @click="mode"></div>
-            <p v-if="this.modeType === 0">顺序播放</p>
-            <p v-else-if="this.modeType === 1">单曲播放</p>
+            <p v-if="modeType === 0">顺序播放</p>
+            <p v-else-if="modeType === 1">单曲播放</p>
             <p v-else>随机播放</p>
           </div>
           <div class="top-right">
@@ -16,9 +16,9 @@
         <div class="player-middle">
           <ScrollView ref="scrollView">
             <ul ref="play" >
-              <li class="item" v-for="(value, index) in this.songs" :key="value.id" @click="selectMusic(index)">
+              <li class="item" v-for="(value, index) in songs" :key="value.id" @click="selectMusic(index)">
                 <div class="item-left">
-                  <div class="item-play" @click.stop="play" v-show="this.currentIndex === index"></div>
+                  <div class="item-play" @click.stop="play" v-show="currentIndex === index"></div>
                   <p>{{ value.name }}</p>
                 </div>
                 <div class="item-right">

@@ -32,37 +32,43 @@ export default {
     commit(SET_MODE_TYPE, flag)
   },
   async setSongDetail ({ commit }, ids) {
-    const result = await getSongDetail({ ids: ids.join(',') })
-    const urls = await getSongURL({ ids: ids.join(',') })
+    console.log(ids.join(','))
+    let result = await getSongDetail({ ids: ids.join(',') })
+    let urls = await getSongURL({ id: ids.join(',') })
     // eslint-disable-next-line no-undef
     console.log(urls)
-    const list = []
-    result.songs.forEach((value, i) => {
-      const obj = {}
-      // 歌曲名
-      obj.name = value.name
+    let list = []
+    result.songs.forEach(function (value, i) {
+      let obj = {}
+      // obj.url = urls.data[i].url
+      for (let j = 0; j < urls.data.length; j++) {
+        let item = urls.data[j]
+        if (value.id === item.id) {
+          obj.url = item.url
+          break
+        }
+      }
       obj.id = value.id
-      obj.urls = urls.data[i].url
-      // 歌手
+      obj.name = value.name
       let singer = ''
-      value.ar.forEach((item, index) => {
+      value['ar'].forEach(function (item, index) {
         if (index === 0) {
           singer = item.name
         } else {
-          singer += item.name
+          singer += '-' + item.name
         }
       })
       obj.singer = singer
-      obj.picUrl = value.al.picUrl
+      obj.picUrl = value['al'].picUrl
       list.push(obj)
     })
     commit(SET_SONG_DETAIL, list)
   },
   async setSongLyric ({ commit }, id) {
     console.log(id)
-    const result = await getSongLyric({ id: id })
+    let result = await getSongLyric({ id: id })
     // console.log(result.lrc.lyric)
-    const obj = parseLyric(result.lrc.lyric)
+    let obj = parseLyric(result.lrc.lyric)
     commit(SET_SONG_LYRIC, obj)
   },
   setDelSong ({ commit }, index) {
