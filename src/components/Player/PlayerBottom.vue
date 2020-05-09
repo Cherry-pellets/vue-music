@@ -3,7 +3,7 @@
     <div class="bottom-progress">
       <span ref="eleCurrentTime">00:00</span>
       <div class="progress-bar">
-        <div class="progress-line">
+        <div class="progress-line" ref="progressLine">
           <div class="progress-dot"></div>
         </div>
       </div>
@@ -136,6 +136,9 @@ export default {
     currentTime (newValue, oldValue) {
       let time = this.formartTime(newValue)
       this.$refs.eleCurrentTime.innerHTML = time.minute + ':' + time.second
+      // 2.根据当前播放的时间计算比例
+      let value = newValue / this.totalTime * 100
+      this.$refs.progressLine.style.width = value + '%'
     }
   },
   props: {
