@@ -4,7 +4,7 @@
     <div class="normal-player" v-show="isFullScreen">
       <div class="wrapper">
         <PlayerHeader></PlayerHeader>
-        <PlayerMiddlle></PlayerMiddlle>
+        <PlayerMiddlle :currentTime="currentTime"></PlayerMiddlle>
         <PlayerBottom :totalTime="totalTime" :currentTime="currentTime"></PlayerBottom>
       </div>
       <div class="player-bg">

@@ -3,7 +3,7 @@
       <NormalPlayer :totalTime="totalTime" :currentTime="currentTime"></NormalPlayer>
       <MiniPlayer></MiniPlayer>
       <ListPlayer></ListPlayer>
-      <audio :src="this.currentSong.url" ref="audio" @timeupdate="timeUpdate" @ended="end"></audio>
+      <audio :src="currentSong.url" ref="audio" @timeupdate="timeUpdate" @ended="end"></audio>
     </div>
 </template>
 

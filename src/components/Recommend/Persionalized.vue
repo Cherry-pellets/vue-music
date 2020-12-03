@@ -63,7 +63,7 @@ export default {
       width: 100%;
       display: flex;
       justify-content: space-around;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* 换行 */
       .item{
         width: 200px;
         padding: 20px 0;

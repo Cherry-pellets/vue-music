@@ -8,6 +8,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+// 实现vue组件的按需加载
 const Recommend = (resolve) => {
   import('../views/Recommend').then((module) => {
     resolve(module)
@@ -33,6 +34,11 @@ const Search = (resolve) => {
     resolve(module)
   })
 }
+const Account = (resolve) => {
+  import('../views/Account').then((module) => {
+    resolve(module)
+  })
+}
 const routes = [
   { path: '/', redirect: '/recommend' },
   {
@@ -47,7 +53,8 @@ const routes = [
   },
   { path: '/singer', component: Singer },
   { path: '/rank', component: Rank },
-  { path: '/search', component: Search }
+  { path: '/search', component: Search },
+  { path: '/account', component: Account }
 ]
 
 const router = new VueRouter({
