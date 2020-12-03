@@ -15,6 +15,7 @@ module.exports = {
       ]
     }
   },
+
   devServer: {
     proxy: {
       '/api': {
@@ -24,6 +25,30 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      }
+    }
+  },
+  // 安装预渲染插件后自动添加的
+  pluginOptions: {
+    prerenderSpa: {
+      registry: undefined,
+      renderRoutes: [
+        '/',
+        '/recommend',
+        '/singer',
+        '/rank',
+        '/search',
+        '/account',
+        '/detail'
+      ],
+      useRenderEvent: true,
+      headless: true,
+      onlyProduction: true,
+      postProcess: route => {
+        let reg = /<meta name="viewport".*user-scalable=no">/gi
+        let res = route.match(reg)
+        route.html = route.html.replace(res, '')
+        return route
       }
     }
   }
